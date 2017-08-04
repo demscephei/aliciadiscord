@@ -1,7 +1,7 @@
 {
-  "name": "aliciabot",
-  "version": "1.0.0",
-  "description": "",
+  "name": "aliciadiscord",
+  "version": "0.1",
+  "description": "A Discord bot for my personal server",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
