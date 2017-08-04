@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const TOKEN = "Mjg5MDA5NDY4Mzk2NTM1ODA4.C6OdbQ.PwcXYs5uj-edd69kAb9dFkGIuBg";
-const PREFIX = "!";
+const PREFIX = "=";
 
 var fortunes = [
     "Yes!",
