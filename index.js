@@ -23,6 +23,10 @@ bot.on("guildMemberAdd", function(member) {
     member.addRole(member.guild.roles.find("name", "Reploids"));
 });
 
+bot.on("guildMemberRemove", function(member){
+    member.guild.channels.find("name", "lobby").send("Bye-bee " + member.toString() + "...");
+});
+
 bot.on("message", function(message){
     if (message.author.equals(bot.user)) return;
 
