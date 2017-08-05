@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const config = require("./config.json");
-
+const fs = require("fs");
 var fortunes = [
     "Yes!",
     "No...",
@@ -59,6 +59,12 @@ bot.on("message", function(message){
         case "mentionme":
             message.channel.sendMessage("Shoutouts to " + message.author.toString() + "!");
             break;
+        case "prefix" :
+            if(message.author.id !== config.ownerID) return;
+                let newPrefix = message.content.split(" ").slice(1, 2)[0];
+                config.prefix = newPrefix;
+                fs.writeFile("./config.json", JSON.stringify(config), (err) => console.error);
+                break;
         default:
             message.channel.sendMessage("Um, that's not a valid command, master...")
     }
