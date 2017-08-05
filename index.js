@@ -59,14 +59,18 @@ bot.on("message", function(message){
         case "mentionme":
             message.channel.sendMessage("Shoutouts to " + message.author.toString() + "!");
             break;
+        case "help":
+            message.author.sendMessage("Help test.");
+            break;
         case "prefix" :
             if(message.author.id !== config.ownerID){
-                message.channel.sendMessage("Sorry! Only my master can use this command.")
+                message.channel.sendMessage("Sorry! Only my master can use this command.");
                 return;
             }
                 let newPrefix = message.content.split(" ").slice(1, 2)[0];
                 config.prefix = newPrefix;
                 fs.writeFile("./config.json", JSON.stringify(config), (err) => console.error);
+                message.channel.sendMessage("Prefix changed!");
                 break;
         default:
             message.channel.sendMessage("Um, that's not a valid command, master...")
