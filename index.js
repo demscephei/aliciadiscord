@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const config = require("./config.json");
+const package = require("./package.json");
 const fs = require("fs");
 var fortunes = [
     "Yes!",
@@ -10,6 +11,10 @@ var fortunes = [
     "Yes :)",
     "Not even close",
     "You might as well stop trying.",
+    "Sorry, no.",
+    "Definitely!",
+    "I don't think so.",
+    "Ask again, please"
 ];
 
 bot.on('ready', () => {
@@ -23,7 +28,7 @@ bot.on("guildMemberAdd", function(member) {
 });
 
 bot.on("guildMemberRemove", function(member){
-    member.guild.channels.find("name", "lobby").send("Bye-bee " + member.toString() + "...");
+    member.guild.channels.find("name", "lobby").send("Bye " + member.toString() + "~");
 });
 
 bot.on("message", function(message){
@@ -38,7 +43,7 @@ bot.on("message", function(message){
             message.channel.sendMessage("Pong!");
             break;
         case "info":
-            message.channel.sendMessage("I'm Alicia v0.1! A Discord bot created by Dems!");
+            message.channel.sendMessage("I'm Alicia v" + package.version + "! A Discord bot created by Dems!");
             break;
         case "8ball":
             if (args[1]) {
@@ -48,7 +53,7 @@ bot.on("message", function(message){
                 message.channel.sendMessage("I need something to tell your fortune.");
                 break;
             }
-        case "embedtest":
+        /*case "embedtest":
             var embed = new Discord.RichEmbed()
                 .setDescription("EMBED TEXT")
                 .setColor(0x00FFFF)
@@ -59,8 +64,16 @@ bot.on("message", function(message){
         case "mentionme":
             message.channel.sendMessage("Shoutouts to " + message.author.toString() + "!");
             break;
+            */
         case "help":
-            message.author.sendMessage("Help test.");
+            message.author.sendMessage("Hello " + message.author.toString() + "! I'm here to help you.\
+            These are the commands avaible in version" + package.version +  
+            "`8ball`\
+            `help`\
+            `info`\
+            `ping`\
+            Have a nice day!"
+        );
             break;
         case "prefix" :
             if(message.author.id !== config.ownerID){
@@ -73,7 +86,11 @@ bot.on("message", function(message){
                 message.channel.sendMessage("Prefix changed!");
                 break;
         default:
-            message.channel.sendMessage("Um, that's not a valid command, master...")
+            if(message.author.id !== config.ownerID){
+                message.channel.sendMessage("Um, that's not a valid command...");
+                return;
+            }
+            message.channel.sendMessage("Sorry master! That's not a valid command!");
     }
 });
 
