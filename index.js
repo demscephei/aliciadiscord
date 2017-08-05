@@ -60,7 +60,10 @@ bot.on("message", function(message){
             message.channel.sendMessage("Shoutouts to " + message.author.toString() + "!");
             break;
         case "prefix" :
-            if(message.author.id !== config.ownerID) return;
+            if(message.author.id !== config.ownerID){
+                message.channel.sendMessage("Sorry! Only my master can use this command.")
+                return;
+            }
                 let newPrefix = message.content.split(" ").slice(1, 2)[0];
                 config.prefix = newPrefix;
                 fs.writeFile("./config.json", JSON.stringify(config), (err) => console.error);
