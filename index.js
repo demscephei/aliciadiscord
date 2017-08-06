@@ -75,21 +75,6 @@ bot.on("message", function(message){
                 message.channel.sendMessage("I need something to tell your fortune.");
                 break;
             }
-        // -- JUNK --
-        /*case "embedtest":
-            var embed = new Discord.RichEmbed()
-                .setDescription("EMBED TEXT")
-                .setColor(0x00FFFF)
-                .setFooter("Testing footer")
-                .setThumbnail(message.author.avatarURL)
-            message.channel.sendEmbed(embed);
-            break;
-        case "mentionme":
-            message.channel.sendMessage("Shoutouts to " + message.author.toString() + "!");
-            break;
-            */
-        // --JUNK --
-
         // Game status changing command. Only ownerID can use it!
         case "game":
             if(message.author.id !== config.ownerID){
@@ -100,8 +85,7 @@ bot.on("message", function(message){
                 // If there's an argument after the command, it'll join every subsecuent argument with spaces into
                 // one string. (I didn't do this previously so Alicia could only show game names composed of one word
                 // or game names that had no spaces such as Half-Life)
-                const currentgame = args.join(" ").slice[0];
-                bot.user.setGame(currentgame);
+                bot.user.setGame(args.slice(1).join(" "));
                 break;
             } else {
                 // If there's no arguments, it'll set the default text.
@@ -148,6 +132,22 @@ bot.on("message", function(message){
                 return;
             }
             message.channel.sendMessage("Sorry master! That's not a valid command!");
+            
+        // -- JUNK --
+        /*case "embedtest":
+            var embed = new Discord.RichEmbed()
+                .setDescription("EMBED TEXT")
+                .setColor(0x00FFFF)
+                .setFooter("Testing footer")
+                .setThumbnail(message.author.avatarURL)
+            message.channel.sendEmbed(embed);
+            break;
+        case "mentionme":
+            message.channel.sendMessage("Shoutouts to " + message.author.toString() + "!");
+            break;
+            */
+        // --JUNK --
+
     }
 });
 
