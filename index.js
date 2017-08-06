@@ -100,7 +100,7 @@ bot.on("message", function(message){
                 // If there's an argument after the command, it'll join every subsecuent argument with spaces into
                 // one string. (I didn't do this previously so Alicia could only show game names composed of one word
                 // or game names that had no spaces such as Half-Life)
-                const currentgame = args.join(" ");
+                const currentgame = args.join(" ").slice[0];
                 bot.user.setGame(currentgame);
                 break;
             } else {
