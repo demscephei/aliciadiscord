@@ -24,6 +24,11 @@ bot.on('ready', () => {
     console.log('Alicia-chan is online!');
     bot.user.setGame(`${config.PREFIX}help for commands!`)
 });
+// Alicia will say hi whenever she joins a new guild
+bot.on("guildCreate", guild => {
+    message.guild.channel.sendMessage("Hello! I'm Alicia, nice to meet you!");
+});
+
 
 // Simple welcoming system.
 bot.on("guildMemberAdd", function(member) {
@@ -124,6 +129,10 @@ bot.on("message", function(message){
                 message.channel.sendMessage("I need you to specify a new prefix, master...");
                 break;
             }
+
+        case "sayhi" :
+            bot.emit("guildCreate", guild)
+            break;
         // The default case, triggered if the user doesn't prompts any command from this list. 
         // She'll respond differently if she's talking to ownerID or a regular user!
         default:
