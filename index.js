@@ -19,6 +19,7 @@ var fortunes = [
 
 bot.on('ready', () => {
     console.log('Alicia-chan is online!');
+    bot.user.setGame(`${config.PREFIX}help for commands!`)
 });
 
 bot.on("guildMemberAdd", function(member) {
@@ -40,12 +41,16 @@ bot.on("message", function(message){
 
     switch (args[0]) {
         case "ping":
-        const m = await message.channel.sendMessage("Ping?");
-        m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms `);
+            message.channel.sendMessage("Pong!");
             break;
         case "info":
-            message.channel.sendMessage("I'm Alicia `v" + package.version + "` ! A Discord bot created by master Dems!" + message.config.ownerID.avatarURL);
-            break;
+            var embed = new Discord.RichEmbed()
+                .setDescription("I'm alicia `v" + package.version + "`! A Discord bot created by Dems")
+                .setColor(0xD873FF)
+                message.channel.sendEmbed(embed);
+                break;
+            //message.channel.sendMessage("I'm Alicia `v" + package.version + "` ! A Discord bot created by master Dems!");
+            //break;
         case "8ball":
             if (args[1]) {
                 message.channel.sendMessage(fortunes[Math.floor(Math.random() * fortunes.length)]);
@@ -66,9 +71,21 @@ bot.on("message", function(message){
             message.channel.sendMessage("Shoutouts to " + message.author.toString() + "!");
             break;
             */
+        case "game":
+            if(message.author.id !== config.ownerID){
+                message.channel.sendMessage("Sorry! Only my master can use this command.");
+                return;
+            }    
+            if (args[1]) {
+                bot.user.setGame(`${args[1]}`);
+                break;
+            } else {
+                bot.user.setGame(`${config.PREFIX}help for commands!`);
+                break;
+            }
         case "help":
             message.author.sendMessage("Hello " + message.author.toString() + "! I'm here to help you. \n" +
-            "These are the commands avaible in version"  + package.version + ": \n" +  
+            "These are the commands avaible in version `"  + package.version + "` : \n" +  
             "`8ball`\n" +
             "`help`\n" +
             "`info`\n" +
@@ -81,11 +98,16 @@ bot.on("message", function(message){
                 message.channel.sendMessage("Sorry! Only my master can use this command.");
                 return;
             }
+            if (args[1]) {
                 let newPrefix = message.content.split(" ").slice(1, 2)[0];
-                config.prefix = newPrefix;
+                config.PREFIX = newPrefix;
                 fs.writeFile("./config.json", JSON.stringify(config), (err) => console.error);
                 message.channel.sendMessage("Prefix changed!");
                 break;
+            } else {
+                message.channel.sendMessage("I need you to specify a new prefix, master...");
+                break;
+            }
         default:
             if(message.author.id !== config.ownerID){
                 message.channel.sendMessage("Um, that's not a valid command...");
