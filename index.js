@@ -40,10 +40,11 @@ bot.on("message", function(message){
 
     switch (args[0]) {
         case "ping":
-            message.channel.sendMessage("Pong!");
+        const m = await message.channel.sendMessage("Ping?");
+        m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms `);
             break;
         case "info":
-            message.channel.sendMessage("I'm Alicia v" + package.version + "! A Discord bot created by Dems!");
+            message.channel.sendMessage("I'm Alicia `v" + package.version + "` ! A Discord bot created by master Dems!" + message.config.ownerID.avatarURL);
             break;
         case "8ball":
             if (args[1]) {
@@ -66,13 +67,13 @@ bot.on("message", function(message){
             break;
             */
         case "help":
-            message.author.sendMessage("Hello " + message.author.toString() + "! I'm here to help you.\
-            These are the commands avaible in version" + package.version +  
-            "`8ball`\
-            `help`\
-            `info`\
-            `ping`\
-            Have a nice day!"
+            message.author.sendMessage("Hello " + message.author.toString() + "! I'm here to help you. \n" +
+            "These are the commands avaible in version"  + package.version + ": \n" +  
+            "`8ball`\n" +
+            "`help`\n" +
+            "`info`\n" +
+            "`ping`\n" +
+            "Have a nice day!"
         );
             break;
         case "prefix" :
