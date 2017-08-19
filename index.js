@@ -28,15 +28,19 @@ bot.on('ready', () => {
 
 // Simple welcoming system.
 bot.on("guildMemberAdd", function(member) {
-    member.guild.channels.find("name", "lobby").send("Welcome " + member.toString() + "!");
+    member.guild.channels.find("name", "general").send("Welcome " + member.toString() + "!");
 
+    const rRole = member.guild.roles.find("name", "Reploids");
+    if (!rRole) return;
     member.addRole(member.guild.roles.find("name", "Reploids"));
 });
 
 // Wishes a good farewell to leavers.
+/*
 bot.on("guildMemberRemove", function(member){
     member.guild.channels.find("name", "lobby").send("Bye " + member.toString() + "~");
 });
+*/
 
 // Here we call the message event. We start the command stuff.
 bot.on("message", function(message){
